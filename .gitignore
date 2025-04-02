@@ -1,0 +1,11 @@
+# Folder cache, session, logs, dll.
+writable/*
+
+# File upload (jika ada)
+public/uploads/*
+
+# Folder vendor (composer)
+vendor/*
+
+# File environment (konfigurasi lokal)
+.env
