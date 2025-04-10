@@ -72,7 +72,7 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
-            'csrf' => ['except' => ['auth/login']],
+            'csrf' => ['except' => ['auth/login', 'api/*']], // Aktifkan perlindungan CSRF secara global kecuali untuk rute yang dikecualikan
         ],
         'after' => [
             'toolbar',

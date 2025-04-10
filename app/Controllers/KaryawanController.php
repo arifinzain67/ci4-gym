@@ -256,10 +256,10 @@ class KaryawanController extends BaseController
             return redirect()->to('karyawan')->with('error', 'Data karyawan tidak ditemukan');
         }
 
-        // Validasi form
+        // Validasi form dengan keamanan yang ditingkatkan
         $rules = [
-            'username' => 'required|min_length[5]|is_unique[tb_user.username]',
-            'password' => 'required|min_length[6]',
+            'username' => 'required|min_length[5]|max_length[50]|alpha_numeric_punct|is_unique[tb_user.username]',
+            'password' => 'required|min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/]',
             'confirm_password' => 'required|matches[password]',
             'role' => 'required'
         ];
@@ -268,11 +268,14 @@ class KaryawanController extends BaseController
             'username' => [
                 'required' => 'Username harus diisi',
                 'min_length' => 'Username minimal 5 karakter',
+                'max_length' => 'Username maksimal 50 karakter',
+                'alpha_numeric_punct' => 'Username hanya boleh berisi huruf, angka, dan karakter _ - .',
                 'is_unique' => 'Username sudah digunakan'
             ],
             'password' => [
                 'required' => 'Password harus diisi',
-                'min_length' => 'Password minimal 6 karakter'
+                'min_length' => 'Password minimal 8 karakter',
+                'regex_match' => 'Password harus mengandung huruf besar, huruf kecil, angka, dan karakter khusus (@$!%*?&#)'
             ],
             'confirm_password' => [
                 'required' => 'Konfirmasi password harus diisi',
@@ -296,10 +299,18 @@ class KaryawanController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Admin hanya boleh membuat akun dengan role kasir');
         }
 
-        // Buat akun user
+        // Pastikan tidak ada karakter berbahaya pada input
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+        
+        if (function_exists('is_valid_input') && !is_valid_input($username)) {
+            return redirect()->back()->withInput()->with('error', 'Username mengandung karakter yang tidak diizinkan');
+        }
+
+        // Buat akun user dengan password yang di-hash menggunakan algoritma BCRYPT
         $userData = [
-            'username' => $this->request->getPost('username'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'username' => $username,
+            'password' => password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]),
             'name' => $karyawan['nama'],
             'role' => $requestedRole,
             'id_karyawan' => $id
@@ -354,7 +365,7 @@ class KaryawanController extends BaseController
 
         // Buat validasi khusus
         $rules = [
-            'username' => 'required|min_length[5]',
+            'username' => 'required|min_length[5]|max_length[50]|alpha_numeric_punct',
             'role' => 'required'
         ];
 
@@ -365,7 +376,7 @@ class KaryawanController extends BaseController
 
         // Jika password diisi, validasi password baru
         if ($this->request->getPost('password')) {
-            $rules['password'] = 'min_length[6]';
+            $rules['password'] = 'min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/]';
             $rules['confirm_password'] = 'matches[password]';
         }
 
@@ -394,7 +405,7 @@ class KaryawanController extends BaseController
 
         // Update password jika diisi
         if ($this->request->getPost('password')) {
-            $userData['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+            $userData['password'] = password_hash($this->request->getPost('password'), PASSWORD_BCRYPT, ['cost' => 12]);
         }
 
         $this->userModel->update($user['id_user'], $userData);

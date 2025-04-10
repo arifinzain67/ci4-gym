@@ -28,6 +28,13 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     // Dashboard Route
     $routes->get('dashboard', 'DashboardController::index');
     
+    // Profile and Account Routes
+    $routes->get('profile', 'ProfileController::index');
+    $routes->get('profile/edit', 'ProfileController::edit');
+    $routes->post('profile/update', 'ProfileController::update');
+    $routes->get('account/edit', 'AccountController::edit');
+    $routes->post('account/update', 'AccountController::update');
+
     // Member Routes
     $routes->get('member', 'MemberController::index');
     $routes->get('member/create', 'MemberController::create');

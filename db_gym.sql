@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Apr 2025 pada 05.11
+-- Waktu pembuatan: 09 Apr 2025 pada 18.06
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -48,6 +48,22 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 ('ci_session:dce7364096daf2188d556b075c5a6bb6', '::1', 4294967295, '__ci_last_regenerate|i:1743517619;_ci_previous_url|s:35:\"http://localhost/ci4-gym/auth/login\";csrf_token_name|s:32:\"a08fbce14e0ed81f74aa20e30da91de7\";'),
 ('ci_session:eb22739020e860a98b37c929585527fe', '::1', 4294967295, '__ci_last_regenerate|i:1743513043;_ci_previous_url|s:35:\"http://localhost/ci4-gym/auth/login\";'),
 ('ci_session:ece8e929091e1ef155c385b6b9065a23', '::1', 4294967295, '__ci_last_regenerate|i:1743512624;_ci_previous_url|s:35:\"http://localhost/ci4-gym/auth/login\";');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `version` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `group` varchar(255) NOT NULL,
+  `namespace` varchar(255) NOT NULL,
+  `time` int(11) NOT NULL,
+  `batch` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -100,11 +116,10 @@ INSERT INTO `tb_check_in_out` (`id_check`, `id_member`, `check_in`, `check_out`,
 (12, 9, '2025-03-31 22:53:23', '2025-03-31 22:53:45', 'completed', '2025-04-01 05:53:23', '2025-04-01 05:53:45'),
 (14, 9, '2025-04-01 01:56:38', '2025-04-01 02:03:24', 'completed', '2025-04-01 08:56:38', '2025-04-01 09:03:24'),
 (15, 11, '2025-04-01 02:03:13', '2025-04-01 02:03:18', 'completed', '2025-04-01 09:03:13', '2025-04-01 09:03:18'),
-(16, 16, '2025-04-01 02:06:30', '2025-04-01 02:06:35', 'completed', '2025-04-01 09:06:30', '2025-04-01 09:06:35'),
-(17, 16, '2025-04-01 02:06:42', '2025-04-01 02:06:46', 'completed', '2025-04-01 09:06:42', '2025-04-01 09:06:46'),
 (18, 7, '2025-04-01 02:15:21', '2025-04-01 02:15:28', 'completed', '2025-04-01 09:15:21', '2025-04-01 09:15:28'),
 (19, 7, '2025-04-01 10:38:25', '2025-04-01 15:06:31', 'completed', '2025-04-01 17:38:25', '2025-04-01 22:06:31'),
-(20, 9, '2025-04-01 15:22:28', '2025-04-01 15:22:32', 'completed', '2025-04-01 22:22:28', '2025-04-01 22:22:32');
+(20, 9, '2025-04-01 15:22:28', '2025-04-01 15:22:32', 'completed', '2025-04-01 22:22:28', '2025-04-01 22:22:32'),
+(21, 7, '2025-04-02 10:21:00', '2025-04-02 10:21:07', 'completed', '2025-04-02 17:21:00', '2025-04-02 17:21:07');
 
 -- --------------------------------------------------------
 
@@ -135,7 +150,29 @@ CREATE TABLE `tb_karyawan` (
 --
 
 INSERT INTO `tb_karyawan` (`id_karyawan`, `kode_karyawan`, `nama`, `jenis_kelamin`, `tanggal_lahir`, `alamat`, `no_telepon`, `email`, `posisi`, `tanggal_bergabung`, `status`, `gaji`, `foto`, `created_at`, `updated_at`) VALUES
-(5, 'KRY-20250402-001', 'Bayu Pangestu', 'Laki-laki', '0000-00-00', '', '087654352635', '', 'Kasir', '2025-04-02', 'Aktif', 0.00, NULL, '2025-04-02 02:50:54', '2025-04-02 03:02:08');
+(5, 'KRY-20250402-001', 'Bayu Pangestu', 'Laki-laki', '0000-00-00', '', '087654352635', '', 'Kasir', '2025-04-02', 'Aktif', 0.00, NULL, '2025-04-02 02:50:54', '2025-04-02 03:02:08'),
+(7, 'KRY-20250402-002', 'karina', 'Perempuan', '0000-00-00', '', '087654352635', '', 'Kasir', '2025-04-02', '', 0.00, NULL, '2025-04-02 06:39:56', '2025-04-02 06:39:56'),
+(8, 'KRY-20250402-003', 'Bimbim', 'Laki-laki', '1997-01-07', 'Jl. Manggis', '089312487654', 'bimbim@gmail.com', 'Staff', '2025-04-02', 'Aktif', 1500000.00, '1744208523_30c2377bd070c3f5224f.webp', '2025-04-02 10:24:58', '2025-04-09 21:22:03');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_login_attempts`
+--
+
+CREATE TABLE `tb_login_attempts` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `ip_address` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `time` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data untuk tabel `tb_login_attempts`
+--
+
+INSERT INTO `tb_login_attempts` (`id`, `ip_address`, `username`, `time`) VALUES
+(1, '127.0.0.1', 'pemilik', 1744214438);
 
 -- --------------------------------------------------------
 
@@ -165,7 +202,7 @@ INSERT INTO `tb_members` (`id_member`, `member_code`, `name`, `email`, `phone`, 
 (8, 'RG250004', 'dio', 'dio@gmail.com', '085427162831', 'L', '', '1743401028_92c8ec5d095460f2a7bf.png', '2025-03-28 19:24:19', '2025-03-30 23:03:48'),
 (9, 'RG250005', 'didi', '', '089787654321', 'L', '', '1743192383_8b673fdbc2573cdd9f09.jpg', '2025-03-28 19:28:28', '2025-03-30 22:51:45'),
 (11, 'RG250007', 'Rasya', NULL, '083748483912', 'L', NULL, '1743233825_25963cf2a59672572cc0.jpg', '2025-03-29 07:37:05', '2025-03-29 07:37:05'),
-(16, 'RG250009', 'Bisma', NULL, '0821723645898', 'P', NULL, '1743473083_19c82d4bcce0597a46c8.webp', '2025-03-31 19:04:43', '2025-03-31 19:04:43');
+(18, 'RG250010', 'BAMBANG', 'bambang@gmail.com', '081278643908', 'L', 'Jln, Guna Dharma', '1743589138_87fa2b18bd5829358ac7.jpg', '2025-04-02 03:17:57', '2025-04-02 03:18:58');
 
 --
 -- Trigger `tb_members`
@@ -212,7 +249,7 @@ CREATE TABLE `tb_membership_types` (
 INSERT INTO `tb_membership_types` (`id_type`, `name`, `description`, `price`, `duration`, `created_at`, `updated_at`) VALUES
 (4, 'Gold', 'Bisa Akses Gym Selama 90 Hari', 700000, 90, '2025-03-28 20:42:44', '2025-03-30 06:42:02'),
 (5, 'Silver', 'Bisa Akses Gym Selama 30 Hari', 30000, 30, '2025-03-29 07:50:42', '2025-03-29 12:13:54'),
-(7, 'Bronze', 'Bisa Akses Gym 1 Hari,', 25000, 1, '2025-03-30 14:46:08', '2025-04-01 02:21:18');
+(7, 'Bronzes', 'Bisa Akses Gym 3 Hari,', 50000, 3, '2025-03-30 14:46:08', '2025-04-02 10:19:37');
 
 -- --------------------------------------------------------
 
@@ -240,12 +277,12 @@ CREATE TABLE `tb_transaction` (
 
 INSERT INTO `tb_transaction` (`id_transaction`, `id_member`, `id_type`, `amount`, `amount_paid`, `payment_type`, `payment_date`, `status`, `expired_at`, `created_at`, `updated_at`) VALUES
 (23, 7, 4, 700000.00, 700000.00, 'cash', '2025-01-15 10:30:00', 'paid', '2025-02-15 10:30:00', '2025-01-15 10:30:00', '2025-01-15 10:30:00'),
-(24, 8, 5, 30000.00, 30000.00, 'transfer', '2025-01-20 14:15:00', 'paid', '2025-02-20 14:15:00', '2025-01-20 14:15:00', '2025-01-20 14:15:00'),
 (25, 9, 4, 700000.00, 700000.00, 'cash', '2025-02-01 09:45:00', 'paid', '2025-02-28 09:45:00', '2025-02-01 09:45:00', '2025-02-01 09:45:00'),
-(47, 16, 7, 25000.00, 40000.00, 'cash', '2025-04-01 09:05:21', 'paid', '2025-04-02 09:05:21', '2025-04-01 09:05:21', '2025-04-01 09:05:21'),
 (48, 7, 7, 25000.00, 30000.00, 'cash', '2025-04-01 09:14:53', 'paid', '2025-04-02 09:14:53', '2025-04-01 09:14:53', '2025-04-01 09:14:53'),
 (49, 8, 7, 25000.00, 30000.00, 'cash', '2025-04-01 09:18:53', 'paid', '2025-04-02 09:18:53', '2025-04-01 09:18:53', '2025-04-01 09:18:53'),
-(50, 9, 7, 25000.00, 30000.00, 'cash', '2025-04-01 22:21:53', 'paid', '2025-04-02 22:21:53', '2025-04-01 22:21:53', '2025-04-01 22:21:53');
+(50, 9, 7, 25000.00, 30000.00, 'cash', '2025-04-01 22:21:53', 'paid', '2025-04-02 22:21:53', '2025-04-01 22:21:53', '2025-04-01 22:21:53'),
+(51, 11, 7, 25000.00, 25000.00, '', '2025-04-02 17:13:46', 'paid', '2025-04-03 17:13:46', '2025-04-02 17:13:46', '2025-04-02 17:13:46'),
+(53, 18, 7, 50000.00, 50000.00, '', '2025-04-02 17:57:35', 'paid', '2025-04-05 17:57:35', '2025-04-02 17:57:35', '2025-04-02 17:57:35');
 
 -- --------------------------------------------------------
 
@@ -271,7 +308,8 @@ CREATE TABLE `tb_user` (
 INSERT INTO `tb_user` (`id_user`, `username`, `password`, `name`, `role`, `created_at`, `updated_at`, `id_karyawan`) VALUES
 (1, 'admin', '$2y$10$0XE9pGNbT/PFBVolMa4uCu3KIgqk3Lfr/fhWn4w1pYqHNG.7sPIfm', 'Bryan', 'admin', '2025-04-01 18:53:42', '2025-04-01 21:45:51', NULL),
 (6, 'bayuu', '$2y$10$6CcMzuFxHV22adgcS6v/QOWBR7/RPT0OYmUL8UYrQTRTojAbG3mNm', 'Bayu Pangestu', 'staff', '2025-04-02 02:51:42', '2025-04-02 02:51:42', 5),
-(7, 'pemilik', '$2y$10$0XE9pGNbT/PFBVolMa4uCu3KIgqk3Lfr/fhWn4w1pYqHNG.7sPIfm', 'Nama Pemilik', 'pemilik', '2025-04-02 10:10:34', '2025-04-02 10:10:34', NULL);
+(7, 'pemilik', '$2y$10$0XE9pGNbT/PFBVolMa4uCu3KIgqk3Lfr/fhWn4w1pYqHNG.7sPIfm', 'Nama Pemilik', 'pemilik', '2025-04-02 10:10:34', '2025-04-02 10:10:34', NULL),
+(8, 'bimbim', '$2y$10$Mt92UTlI2U47BvsN2XN8WOXFgMOxxeJZREZ9KuS5Bt/N6xjPySJM6', 'Bimbim', 'staff', '2025-04-09 21:10:12', '2025-04-09 21:29:44', 8);
 
 --
 -- Indexes for dumped tables
@@ -283,6 +321,12 @@ INSERT INTO `tb_user` (`id_user`, `username`, `password`, `name`, `role`, `creat
 ALTER TABLE `ci_sessions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ci_sessions_timestamp` (`timestamp`);
+
+--
+-- Indeks untuk tabel `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `tb_absensi_karyawan`
@@ -305,6 +349,14 @@ ALTER TABLE `tb_check_in_out`
 ALTER TABLE `tb_karyawan`
   ADD PRIMARY KEY (`id_karyawan`),
   ADD KEY `idx_nama_karyawan` (`nama`);
+
+--
+-- Indeks untuk tabel `tb_login_attempts`
+--
+ALTER TABLE `tb_login_attempts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ip_address` (`ip_address`),
+  ADD KEY `username` (`username`);
 
 --
 -- Indeks untuk tabel `tb_members`
@@ -341,6 +393,12 @@ ALTER TABLE `tb_user`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `tb_absensi_karyawan`
 --
 ALTER TABLE `tb_absensi_karyawan`
@@ -350,19 +408,25 @@ ALTER TABLE `tb_absensi_karyawan`
 -- AUTO_INCREMENT untuk tabel `tb_check_in_out`
 --
 ALTER TABLE `tb_check_in_out`
-  MODIFY `id_check` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_check` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_karyawan`
 --
 ALTER TABLE `tb_karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_login_attempts`
+--
+ALTER TABLE `tb_login_attempts`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_members`
 --
 ALTER TABLE `tb_members`
-  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_member` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_membership_types`
@@ -374,13 +438,13 @@ ALTER TABLE `tb_membership_types`
 -- AUTO_INCREMENT untuk tabel `tb_transaction`
 --
 ALTER TABLE `tb_transaction`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
